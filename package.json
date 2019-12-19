@@ -1,0 +1,31 @@
+{
+  "name": "flipit2019",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christenebennett/flipit2019.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christenebennett/flipit2019/issues"
+  },
+  "homepage": "https://github.com/christenebennett/flipit2019#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "knex": "^0.20.4",
+    "morgan": "^1.9.1",
+    "sqlite3": "^4.1.1"
+  }
+}
