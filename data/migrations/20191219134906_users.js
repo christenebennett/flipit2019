@@ -1,15 +1,18 @@
 exports.up = function(knex) {
-    return knex.schema.createTable("users", function(users) {
-      users.increments("id");
-      users
-        .string("emotionName", 128)
-        .notNullable()
-        .unique();
-      
-    });
-  };
-  
-  exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("users");
-  };
-  
+  return knex.schema.createTable("users", function(users) {
+    users.increments("id");
+    users
+      .string("emotionBefore", 128)
+      .references("id")
+      .inTable("emotions");
+    users
+      .string("emotionAfter", 128)
+      .references("id")
+      .inTable("emotions");
+    users.timestamp("created_at").defaultTo(knex.fn.now());
+  });
+};
+
+exports.down = function(knex) {
+  return knex.schema.dropTableIfExists("users");
+};

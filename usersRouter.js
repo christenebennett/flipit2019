@@ -6,12 +6,10 @@ const router = express.Router();
 // GET all users
 router.get("/", async (req, res) => {
   try {
-    const userss = await Users.get();
-    res.status(201).json(userss);
+    const users = await Users.get();
+    res.status(201).json(users);
   } catch (err) {
-    res
-      .status(500)
-      .json({ err: "The users could not be retrieved." });
+    res.status(500).json({ err: "The users could not be retrieved." });
   }
 });
 
@@ -23,9 +21,7 @@ router.get("/:id", async (req, res) => {
     if (users.length > 0) {
       res.status(201).json(users);
     } else {
-      res
-        .status(404)
-        .json({ error: "The user with that id does not exist." });
+      res.status(404).json({ error: "The user with that id does not exist." });
     }
   } catch (err) {
     res.status(500).json({ err: "The user could not be retrieved." });
@@ -36,12 +32,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const newUsers = req.body;
-    if (newUsers.term && newUsers.definition && newUsers.reviewNameId) {
-      const users = await Users.insert(newUsers);
-      res.status(201).json({ newUsers: users });
-    } else {
-      res.status(400).json({ message: "Please provide term and definition." });
-    }
+    const users = await Users.insert(newUsers);
+    res.status(201).json({ newUsers: users });
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -51,13 +43,13 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const usersDelete = await Users.remove(id);
-    if (usersDelete) {
-      res.status(200).json({ deletedMessage: usersDelete });
+    const userDelete = await Users.remove(id);
+    if (userDelete) {
+      res.status(200).json({ deletedMessage: userDelete });
     } else {
       res
         .status(404)
-        .json({ message: "The users with the specified ID does not exist." });
+        .json({ message: "The user with the specified ID does not exist." });
     }
   } catch (err) {
     res.status(500).json({ err: "The users failed to delete." });
@@ -72,15 +64,13 @@ router.put("/:id", async (req, res) => {
     const users = await Users.update(id, updatedUsers);
     if (users) {
       if (
-        updatedUsers.id &&
-        updatedUsers.term &&
-        updatedUsers.definition &&
-        updatedUsers.reviewNameId
+        (updatedUsers.id && updatedUsers.emotionBefore) ||
+        (updatedUsers.id && updatedUsers.emotionAfter)
       ) {
         res.status(200).json({ updatedUsers: users });
       } else {
         res.status(400).json({
-          err: "Please provide users ID,updated text and definition for users"
+          err: "Please provide ID and updated info for users"
         });
       }
     } else {
