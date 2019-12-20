@@ -3,11 +3,11 @@ exports.up = function(knex) {
     users.increments("id");
     users
       .string("emotionBefore", 128)
-      .references("id")
+      .references("emotionName")
       .inTable("emotions");
     users
       .string("emotionAfter", 128)
-      .references("id")
+      .references("emotionName")
       .inTable("emotions");
     users.timestamp("created_at").defaultTo(knex.fn.now());
   });

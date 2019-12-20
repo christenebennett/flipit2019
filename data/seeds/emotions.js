@@ -5,10 +5,11 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('emotions').insert([
-        {id: 1, emotionName: 'emotion1'},
-        {id: 2, emotionName: 'emotion2'},
-        {id: 3, emotionName: 'emotion3'},
-        {id: 4, emotionName: 'emotion4'}
+        {id: 1, emotionName: 'content'},
+        {id: 2, emotionName: 'unsure'},
+        {id: 3, emotionName: 'foggy'},
+        {id: 4, emotionName: 'stressed'},
+        {id: 5, emotionName: 'sleepy'}
       ]);
     });
 };
