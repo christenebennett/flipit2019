@@ -32,8 +32,14 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const newUsers = req.body;
-    const users = await Users.insert(newUsers);
-    res.status(201).json({ newUsers: users });
+    if (newUsers.emotionBefore) {
+      const users = await Users.insert(newUsers);
+      res.status(201).json({ newUsers: users });
+    } else {
+      res
+      .status(404)
+      .json({ message: "Please provide selected emotion before." });
+    }
   } catch (err) {
     res.status(500).json({ err });
   }
